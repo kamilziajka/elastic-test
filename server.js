@@ -20,8 +20,44 @@ app.get('/events', function (req, res) {
   });
 });
 
-app.post('/events', function (req, res) {
+app.get('/search', function (req, res) {
+  var lat = req.query.lat;
+  var lon = req.query.lon;
 
+  res.set({
+    'content-type': 'application/json'
+  });
+
+  request.post({
+    url: host + '/events/_search',
+    'content-type': 'application/json',
+    body: JSON.stringify({
+      sort: [
+        {
+          '_geo_distance': {
+            'location': {
+              'lat': lat,
+              'lon': lon
+            },
+            'unit': 'km',
+            'distance_type': 'arc'
+          }
+        }
+      ]
+    })
+  }, function (err, reqRes, body) {
+    if (!!err) {
+      console.log(err);
+    } else {
+      var json = JSON.parse(body);
+
+      res.send(JSON.stringify(json.hits.hits.map(function (hit) {
+        var result = hit._source;
+        result.score = hit.sort;
+        return result;
+      })));
+    }
+  });
 });
 
 app.use(express.static('public'));
