@@ -11,8 +11,15 @@ $(document).ready(function () {
   var drawMarker = function (event) {
     var marker = new L.marker([event.location.lat, event.location.lon]);
 
-    var label = !!event.score ? event.score[0] + ', ': '';
-    label += event.date;
+    var date = new Date(event.date);
+    var label = !!event.score ? 'dist:&nbsp;' + event.score[0].toFixed(4) + 'km\n': '';
+
+    label += 'date:&nbsp;'
+      + date.getDate() + '.'
+      + date.getDay() + '.'
+      + date.getFullYear() + '&nbsp;'
+      + date.getHours() + ':'
+      + date.getMinutes();
 
     marker.bindLabel(label, {
       noHide: true,
