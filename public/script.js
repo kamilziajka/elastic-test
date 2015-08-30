@@ -8,7 +8,12 @@ $(document).ready(function () {
   }).addTo(map);
 
   var drawMarker = function (event) {
-    return new L.marker([event.location.lat, event.location.lon]).addTo(map);
+    return new L.marker([event.location.lat, event.location.lon])
+      .bindLabel(event.date, {
+        noHide: true,
+        className: 'label'
+      })
+      .addTo(map);
   };
 
   var redraw = function () {
@@ -22,7 +27,6 @@ $(document).ready(function () {
       markers.push(drawMarker(event));
     });
   };
-
 
   $.get('/events', function (data) {
     events = data;
