@@ -32,18 +32,33 @@ app.get('/search', function (req, res) {
     url: host + '/events/_search',
     'content-type': 'application/json',
     body: JSON.stringify({
-      sort: [
-        {
-          '_geo_distance': {
-            'location': {
-              'lat': lat,
-              'lon': lon
+      query: {
+        function_score: {
+          functions: [
+            {
+              gauss: {
+                location: {
+                  origin: {
+                    lat: lat,
+                    lon: lon
+                  },
+                  offset: '0.64km',
+                  scale: '0.64km'
+                }
+              }
             },
-            'unit': 'km',
-            'distance_type': 'arc'
-          }
+            {
+              gauss: {
+                date: {
+                  origin: new Date(),
+                  offset: '0.5h',
+                  scale: '0.5h'
+                }
+              }
+            }
+          ]
         }
-      ]
+      }
     })
   }, function (err, reqRes, body) {
     if (!!err) {
@@ -53,7 +68,7 @@ app.get('/search', function (req, res) {
 
       res.send(JSON.stringify(json.hits.hits.map(function (hit) {
         var result = hit._source;
-        result.score = hit.sort;
+        result.score = hit._score;
         return result;
       })));
     }

@@ -12,7 +12,7 @@ $(document).ready(function () {
     var marker = new L.marker([event.location.lat, event.location.lon]);
 
     var date = new Date(event.date);
-    var label = !!event.score ? 'dist:&nbsp;' + event.score[0].toFixed(4) + 'km\n': '';
+    var label = !!event.score ? 'score:&nbsp;' + event.score.toFixed(4) + '\n': '';
 
     label += 'date:&nbsp;'
       + date.getDate() + '.'

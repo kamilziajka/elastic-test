@@ -12,10 +12,10 @@ var deleteIndex = function () {
 var addIndex = function () {
   request
     .put(host + '/events')
-    .on('response', setMapping);
+    .on('response', setGeoMapping);
 };
 
-var setMapping = function () {
+var setGeoMapping = function () {
   request
     .put({
       url: host + '/events/event/_mapping',
@@ -40,7 +40,7 @@ var addEvents = function () {
       'content-type': 'application/json',
       body: JSON.stringify({
         name: 'event 1',
-        date: '2015-09-10T13:20:00.000Z',
+        date: new Date(new Date().getTime() + 30 * 60000),
         location: {
           lat: 54.371675,
           lon: 18.616328
@@ -54,7 +54,7 @@ var addEvents = function () {
       'content-type': 'application/json',
       body: JSON.stringify({
         name: 'event 2',
-        date: '2015-09-10T13:20:00.000Z',
+        date: new Date(new Date().getTime() + 60 * 60000),
         location: {
           lat: 54.376675,
           lon: 18.621328
@@ -68,7 +68,7 @@ var addEvents = function () {
       'content-type': 'application/json',
       body: JSON.stringify({
         name: 'event 3',
-        date: '2015-09-10T15:20:00.000Z',
+        date: new Date(new Date().getTime() + 15 * 60000),
         location: {
           lat: 54.381675,
           lon: 18.626328
@@ -82,7 +82,7 @@ var addEvents = function () {
       'content-type': 'application/json',
       body: JSON.stringify({
         name: 'event 4',
-        date: '2015-09-10T13:50:00.000Z',
+        date: new Date(new Date().getTime() + 90 * 60000),
         location: {
           lat: 54.366675,
           lon: 18.621328
@@ -96,7 +96,7 @@ var addEvents = function () {
       'content-type': 'application/json',
       body: JSON.stringify({
         name: 'event 5',
-        date: '2015-09-10T13:50:00.000Z',
+        date: new Date(new Date().getTime() + 120 * 60000),
         location: {
           lat: 54.366675,
           lon: 18.611328
