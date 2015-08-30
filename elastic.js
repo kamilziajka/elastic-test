@@ -54,7 +54,7 @@ var addEvents = function () {
       'content-type': 'application/json',
       body: JSON.stringify({
         name: 'event 2',
-        date: new Date(new Date().getTime() + 60 * 60000),
+        date: new Date(new Date().getTime() + 30 * 60000),
         location: {
           lat: 54.376675,
           lon: 18.621328
