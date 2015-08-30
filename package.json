@@ -1,0 +1,16 @@
+{
+  "name": "elastic-test",
+  "version": "1.0.0",
+  "description": "elastic-test",
+  "main": "server.js",
+  "author": "kazet",
+  "license": "MIT",
+  "scripts": {
+    "run": "node server.js"
+  },
+  "dependencies": {
+    "config": "^1.15.0",
+    "express": "^4.13.3",
+    "request": "^2.61.0"
+  }
+}
